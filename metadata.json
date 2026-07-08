@@ -1,0 +1,6 @@
+{
+  "name": "AI Growth OS",
+  "description": "A modern, central growth command center and intelligence platform that connects to multiple applications to analyze growth, automate marketing, and recommend actions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
