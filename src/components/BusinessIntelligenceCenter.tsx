@@ -819,13 +819,13 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
           </div>
           <div>
             <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-              Business Intelligence Center
+              Growth Radar
               <span className="text-[9px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full uppercase tracking-widest animate-pulse">
-                AI Powered
+                AI Intelligence
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Synthesize customer behavior logs, retention anomalies, and geographic opportunities directly with Gemini. Always attached with thorough AI explanations.
+              Find regional customer hotspots, analyze why users are leaving, and master customer sharing loops with clear, simple business translations.
             </p>
           </div>
         </div>
@@ -839,12 +839,12 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
           {loading ? (
             <>
               <RefreshCw className="w-4 h-4 animate-spin text-emerald-400" />
-              <span>Analyzing telemetry...</span>
+              <span>Scanning your business...</span>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 text-emerald-400 fill-current" />
-              <span>Sync Live AI Insights</span>
+              <span>Refresh Business Scanner</span>
             </>
           )}
         </button>
@@ -855,8 +855,8 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
         <div className="bg-rose-950/20 border border-rose-900/40 p-4 rounded-2xl flex items-start gap-3 text-rose-300 text-xs">
           <AlertTriangle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
           <div>
-            <span className="font-bold block">Live AI Sync Interruption</span>
-            <span className="opacity-90">{errorMessage}. Utilizing high-trust baseline records instead.</span>
+            <span className="font-bold block">AI Scanner Offline</span>
+            <span className="opacity-90">{errorMessage}. Showing cached business records instead.</span>
           </div>
         </div>
       )}
@@ -907,7 +907,7 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
                 className="bg-slate-900 border border-slate-800 rounded-2xl p-4 cursor-pointer transition-all border-l-4 border-l-emerald-500"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest">PRODUCT HEALTH SCORE</span>
+                  <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest">BUSINESS STRENGTH SCORE</span>
                   <span className="text-xl font-mono font-black text-emerald-400">{biData.performanceOverview.healthScore}/100</span>
                 </div>
                 <h4 className="text-xs font-bold text-white mt-2 leading-tight">{biData.performanceOverview.headline}</h4>
@@ -915,7 +915,7 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
                   {biData.performanceOverview.desc}
                 </p>
                 <div className="mt-3.5 pt-3 border-t border-slate-850 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-                  <span>METRIC SERIES: Chronological</span>
+                  <span>TREND PATTERN: Growth Trend</span>
                   <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
                 </div>
               </div>
@@ -1023,12 +1023,12 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
             {/* Header deep dive */}
             <div className="border-b border-slate-800 pb-4 flex items-start justify-between">
               <div>
-                <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block">Deep Intelligence Canvas</span>
+                <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block">Interactive Growth Board</span>
                 <h3 className="text-sm font-black text-white mt-1">
-                  {activeTab === 'overview' && 'Chronological Performance Health Overview'}
-                  {activeTab === 'insights' && `Insight Deep-Dive: ${biData.insights[activeItemIndex]?.title || ''}`}
-                  {activeTab === 'opportunities' && `Growth Catalyst: ${biData.opportunities[activeItemIndex]?.title || ''}`}
-                  {activeTab === 'risks' && `Risk Radar: ${biData.riskAlerts[activeItemIndex]?.title || ''}`}
+                  {activeTab === 'overview' && 'Overall Business Growth Trajectory'}
+                  {activeTab === 'insights' && `Actionable Insight: ${biData.insights[activeItemIndex]?.title || ''}`}
+                  {activeTab === 'opportunities' && `Growth Opportunity: ${biData.opportunities[activeItemIndex]?.title || ''}`}
+                  {activeTab === 'risks' && `Potential Risk: ${biData.riskAlerts[activeItemIndex]?.title || ''}`}
                 </h3>
               </div>
 
@@ -1043,9 +1043,9 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
               <div className="py-24 flex flex-col items-center justify-center space-y-4 text-center">
                 <RefreshCw className="w-10 h-10 text-emerald-400 animate-spin" />
                 <div className="space-y-1">
-                  <h4 className="text-xs font-bold text-white">Synthesizing data trails...</h4>
+                  <h4 className="text-xs font-bold text-white">Scanning customer habits...</h4>
                   <p className="text-[11px] text-slate-500 max-w-sm leading-relaxed">
-                    Gemini is processing active behavioral telemetry metrics, scanning cohort retention logs, and drafting targeted marketing insights for {activeApp.name}.
+                    AI is analyzing how users interact with your business to find easy ways to increase retention and boost organic growth.
                   </p>
                 </div>
               </div>
@@ -1097,7 +1097,7 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
                         <div className="p-3 bg-slate-900 border border-slate-850 rounded-xl flex items-start gap-2.5">
                           <Info className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <span className="text-[10.5px] text-slate-400 leading-normal">
-                            <strong className="text-slate-200">Behavioral Diagnostic:</strong> Maturing data signals reveal that users categorized in this cohort have {biData.insights[activeItemIndex].change} performance deviation compared to the rest of the application user base.
+                            <strong className="text-slate-200">Business Translation:</strong> Our analysis shows that users in this category show a {biData.insights[activeItemIndex].change} difference in engagement compared to your standard customer base.
                           </span>
                         </div>
                       </div>
@@ -1110,14 +1110,14 @@ export default function BusinessIntelligenceCenter({ activeApp }: BusinessIntell
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
                           <div className="bg-slate-900 p-3 rounded-xl border border-slate-850 space-y-1">
-                            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">TARGET GROUP SEGMENT</span>
+                            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">YOUR TARGET AUDIENCE</span>
                             <span className="text-[10.5px] font-bold text-white flex items-center gap-1">
                               <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                               {biData.opportunities[activeItemIndex].targetSegment}
                             </span>
                           </div>
                           <div className="bg-slate-900 p-3 rounded-xl border border-slate-850 space-y-1">
-                            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">RECOMMENDED OUTREACH CHANNEL</span>
+                            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">HOW TO REACH THEM</span>
                             <span className="text-[10.5px] font-bold text-emerald-400">
                               {biData.opportunities[activeItemIndex].suggestedChannel}
                             </span>

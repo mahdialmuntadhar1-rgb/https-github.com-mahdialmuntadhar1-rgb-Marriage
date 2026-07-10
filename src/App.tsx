@@ -3,11 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from 'react';
 import { ConnectedApp, Recommendation, GrowthTask, ChatMessage, AppMetrics, MarketingAutomation } from './types';
 import { 
@@ -18,50 +13,165 @@ import {
   INITIAL_AUTOMATIONS
 } from './data';
 import AppSelector from './components/AppSelector';
-import MetricsDashboard from './components/MetricsDashboard';
-import BusinessIntelligenceCenter from './components/BusinessIntelligenceCenter';
-import ConnectedAppsMarketplace from './components/ConnectedAppsMarketplace';
-import SettingsPanel from './components/SettingsPanel';
-import DailyAgenda from './components/DailyAgenda';
-import AiRecommendations from './components/AiRecommendations';
-import ContentStudio from './components/ContentStudio';
-import GrowthBrainChat from './components/GrowthBrainChat';
-import AutomationCenter from './components/AutomationCenter';
+import InteractiveCapabilitySimulator from './components/InteractiveCapabilitySimulator';
 import { 
-  Sliders, 
-  ClipboardList, 
-  Sparkles, 
-  FileText, 
-  MessageSquare, 
+  Home,
+  Layers,
+  PenTool,
+  Rocket,
+  BarChart,
+  Workflow,
+  BookOpen,
+  Briefcase,
   Database, 
   Globe, 
   Cpu, 
-  Zap,
-  Bot,
-  BarChart3,
-  Settings
+  Menu,
+  X,
+  ChevronRight,
+  TrendingUp,
+  Activity,
+  Award
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+// Complete Information Architecture Definition
+const NAVIGATION_CHANNELS = [
+  {
+    id: 'HOME',
+    name: 'HOME (Command Center)',
+    icon: Home,
+    subSections: [
+      { name: 'Daily Briefing', desc: 'Central priorities overview' },
+      { name: "Today's Tasks", desc: 'Active action items list' },
+      { name: 'Recent Projects', desc: 'Active workspace projects' },
+      { name: 'Business Health Score', desc: 'KPI diagnostic scores' },
+      { name: 'AI Recommendations', desc: 'Custom diagnostic plays' },
+      { name: 'One-click Quick Actions', desc: 'Immediate campaign tasks' }
+    ]
+  },
+  {
+    id: 'BUILD',
+    name: 'BUILD (No-Code Studio)',
+    icon: Layers,
+    subSections: [
+      { name: 'Website Builder', desc: 'Landing page structure tool' },
+      { name: 'Mobile App Builder', desc: 'Interactive phone design' },
+      { name: 'AI App Builder', desc: 'Custom prompt & model tester' },
+      { name: 'Landing Page Builder', desc: 'Lead generation templates' },
+      { name: 'Database Builder', desc: 'Visual database schema' },
+      { name: 'Workflow Builder', desc: 'Trigger-action logical maps' },
+      { name: 'Automation Builder', desc: 'Dynamic campaign router' }
+    ]
+  },
+  {
+    id: 'CREATE',
+    name: 'CREATE (Campaign Studio)',
+    icon: PenTool,
+    subSections: [
+      { name: 'Content Studio', desc: 'Copywriting copy creator' },
+      { name: 'Video Studio', desc: 'AI marketing scripts outline' },
+      { name: 'Image Studio', desc: 'Promotional visual banners' },
+      { name: 'Presentation Studio', desc: 'Pitch deck outline creator' },
+      { name: 'Email Studio', desc: 'Newsletter sequence editor' },
+      { name: 'Blog Studio', desc: 'SEO article outline composer' },
+      { name: 'Ad Studio', desc: 'Multichannel copy variations' },
+      { name: 'Social Studio', desc: 'Direct post formatting' },
+      { name: 'Brand Kit', desc: 'Visual palette preferences' }
+    ]
+  },
+  {
+    id: 'LAUNCH',
+    name: 'LAUNCH (Deploy Room)',
+    icon: Rocket,
+    subSections: [
+      { name: 'Campaign Builder', desc: 'Consolidate launch folders' },
+      { name: 'Product Launch Wizard', desc: 'Interactive launch guide' },
+      { name: 'Social Publishing', desc: 'Queue scheduler calendar' },
+      { name: 'Email Campaigns', desc: 'Dispatch segmentation lists' },
+      { name: 'Meta Ads', desc: 'Simulated budget optimization' },
+      { name: 'Google Ads', desc: 'Search keyword bid tuner' },
+      { name: 'WhatsApp Campaigns', desc: 'Conversational drip rules' },
+      { name: 'App Deployment', desc: 'Production container build' }
+    ]
+  },
+  {
+    id: 'ANALYZE',
+    name: 'ANALYZE (Intelligence)',
+    icon: BarChart,
+    subSections: [
+      { name: 'Business Dashboard', desc: 'Historical cohort charts' },
+      { name: 'Growth Intelligence', desc: 'LTV/CAC diagnostics' },
+      { name: 'Marketing Analytics', desc: 'Channel ROI scorecard' },
+      { name: 'Competitor Analysis', desc: 'Competitive positioning matrix' },
+      { name: 'SEO Analysis', desc: 'Ranking & index visibility' },
+      { name: 'Revenue & Funnel', desc: 'Checkout conversion dropoffs' },
+      { name: 'Customer Journey', desc: 'Chronological telemetry log' },
+      { name: 'AI Recommendations & Forecasts', desc: 'Future predictive charts' }
+    ]
+  },
+  {
+    id: 'AUTOMATE',
+    name: 'AUTOMATE (Outreach)',
+    icon: Workflow,
+    subSections: [
+      { name: 'Workflow Automation', desc: 'Active hook logs' },
+      { name: 'AI Employees/Agents', desc: 'Autonomous workforce chat' },
+      { name: 'Scheduled Tasks', desc: 'Cron timeline manager' },
+      { name: 'CRM Automation', desc: 'Deals pipeline kanban' },
+      { name: 'Lead Generation', desc: 'Prospect directory scraper' },
+      { name: 'Email Sequences', desc: 'Onboarding drip timelines' }
+    ]
+  },
+  {
+    id: 'KNOWLEDGE',
+    name: 'KNOWLEDGE (Memory)',
+    icon: BookOpen,
+    subSections: [
+      { name: 'Founder Memory', desc: 'Operational facts vault' },
+      { name: 'Business Documents', desc: 'Document & PDF uploader' },
+      { name: 'Playbooks & SOPs', desc: 'Standard operating rules' },
+      { name: 'Research Notes', desc: 'Saved scratchpad ideas' },
+      { name: 'Saved Conversations', desc: 'Diagnostics archive' }
+    ]
+  },
+  {
+    id: 'WORKSPACES',
+    name: 'WORKSPACES',
+    icon: Briefcase,
+    subSections: [
+      { name: 'Switch Workspace', desc: 'Change organization' },
+      { name: 'Independent Memory', desc: 'Workspace settings' },
+      { name: 'Add Organization', desc: 'Register new company' }
+    ]
+  }
+];
 
 export default function App() {
   // Global Workspace States
   const [apps, setApps] = useState<ConnectedApp[]>(INITIAL_APPS);
-  const [activeAppId, setActiveAppId] = useState<string>('zawaj');
+  const [activeAppId, setActiveAppId] = useState<string>('ai_growth_os'); // defaults to central OS
   const [recommendations, setRecommendations] = useState<Record<string, Recommendation[]>>(INITIAL_RECOMMENDATIONS);
   const [tasks, setTasks] = useState<GrowthTask[]>(INITIAL_TASKS);
   const [chatHistory, setChatHistory] = useState<Record<string, ChatMessage[]>>(INITIAL_CHAT);
   const [automations, setAutomations] = useState<MarketingAutomation[]>(INITIAL_AUTOMATIONS);
+  const [founderMode, setFounderMode] = useState<'beginner' | 'advanced'>('beginner');
   
-  // Starting on 'agenda' so the founder instantly sees "what needs attention today"
-  const [activeTab, setActiveTab] = useState<'agenda' | 'dashboard' | 'recommendations' | 'marketing' | 'chat' | 'automation' | 'connections' | 'settings'>('agenda');
+  // Navigation States
+  const [activeCategory, setActiveCategory] = useState<string>('HOME');
+  const [activeSubSection, setActiveSubSection] = useState<string>('Daily Briefing');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
-  // Prefilled marketing copy states from the AI Coach
+  // Prefilled marketing copy states
   const [prefilledGoal, setPrefilledGoal] = useState<string>('');
   const [prefilledTone, setPrefilledTone] = useState<string>('');
 
   const handlePrefillCampaign = (goal: string, tone: string) => {
     setPrefilledGoal(goal);
     setPrefilledTone(tone);
+    // Switch to create panel
+    setActiveCategory('CREATE');
+    setActiveSubSection('Content Studio');
   };
 
   const handleClearPrefilled = () => {
@@ -87,7 +197,7 @@ export default function App() {
     );
   };
 
-  // CONNECT NEW APP
+  // CONNECT NEW APP (Adding new Organization Workspace)
   const handleConnectApp = (newAppInfo: Omit<ConnectedApp, 'id' | 'connectedAt' | 'status' | 'metrics'>) => {
     const newId = newAppInfo.name.toLowerCase().replace(/\s+/g, '_');
     
@@ -122,7 +232,7 @@ export default function App() {
       status: 'active'
     };
 
-    // Seed default recommendations for the newly connected app
+    // Seed default recommendations
     const defaultRecs: Recommendation[] = [
       {
         id: `${newId}_rec_default`,
@@ -151,14 +261,14 @@ export default function App() {
       }
     ];
 
-    // Update global states
     setApps(prev => [...prev, newConnectedApp]);
     setRecommendations(prev => ({ ...prev, [newId]: defaultRecs }));
     setChatHistory(prev => ({ ...prev, [newId]: defaultChat }));
     setActiveAppId(newId);
     
-    // Switch to dashboard tab so they see simulated metrics
-    setActiveTab('dashboard');
+    // Switch to home dashboard
+    setActiveCategory('ANALYZE');
+    setActiveSubSection('Business Dashboard');
   };
 
   // CHECKLIST ACTIONS
@@ -180,7 +290,7 @@ export default function App() {
       category,
       completed: false,
       priority,
-      dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 7 days from now
+      dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     };
     setTasks(prev => [newTask, ...prev]);
   };
@@ -189,16 +299,16 @@ export default function App() {
     setTasks(prev => prev.filter(t => t.id !== id));
   };
 
-  // ADOPT RECOMMENDATION AS ACTIVE TASK
   const handleAdoptRecommendation = (
     title: string, 
-    category: 'Acquisition' | 'Retention' | 'Monetization' | 'Virality', 
+    category: 'Acquisition' | 'Retention' | 'Monetization' | 'Virality' | 'Brand', 
     priority: 'High' | 'Medium' | 'Low'
   ) => {
-    handleAddTask(title, category, priority);
+    // Cast category to acceptable checklist category
+    const checklistCategory = category === 'Brand' ? 'Acquisition' : category;
+    handleAddTask(title, checklistCategory, priority);
   };
 
-  // CHAT ACTIONS
   const handleAddChatMessage = (newMsg: ChatMessage) => {
     setChatHistory(prev => ({
       ...prev,
@@ -223,7 +333,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans" id="workspace-root">
       
-      {/* Top Professional Header Navigation */}
+      {/* Top Header - System Wide */}
       <header className="bg-slate-900/40 border-b border-slate-900 backdrop-blur-sm sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/10">
@@ -242,7 +352,7 @@ export default function App() {
         <div className="hidden md:flex items-center gap-6">
           <div className="flex items-center gap-2 text-xs">
             <Database className="w-3.5 h-3.5 text-slate-500" />
-            <span className="text-slate-400 font-medium">Server Sync Status:</span>
+            <span className="text-slate-400 font-medium">Server Sync:</span>
             <span className="text-emerald-400 font-bold flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
               Active
@@ -251,150 +361,214 @@ export default function App() {
 
           <div className="flex items-center gap-2 text-xs">
             <Globe className="w-3.5 h-3.5 text-slate-500" />
-            <span className="text-slate-400 font-medium">Connected Databases:</span>
+            <span className="text-slate-400 font-medium">Organizations:</span>
             <span className="text-slate-200 font-bold bg-slate-800 px-2 py-0.5 rounded-md font-mono">{apps.length}</span>
           </div>
-        </div>
-      </header>
 
-      {/* Main Workspace Frame */}
-      <main className="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
-        
-        {/* Row 1: Active App Switcher Indicator */}
-        <AppSelector 
-          apps={apps}
-          activeAppId={activeAppId}
-          onSelectApp={handleSelectApp}
-          onConnectApp={handleConnectApp}
-        />
-
-        {/* Row 2: Navigation Tabs for Platform Features */}
-        <div className="flex items-center border-b border-slate-900 pb-px overflow-x-auto gap-2" id="nav-tabs-rail">
-          {[
-            { id: 'agenda', name: 'Focus Agenda', icon: ClipboardList, desc: "What needs attention today" },
-            { id: 'dashboard', name: 'BI Center', icon: BarChart3, desc: "AI Powered Analytics" },
-            { id: 'recommendations', name: 'AI Recommendations', icon: Sparkles, desc: "Diagnostics plays" },
-            { id: 'automation', name: 'Automation Center', icon: Cpu, desc: "AI trigger workflows" },
-            { id: 'marketing', name: 'Content Studio', icon: FileText, desc: "Generate marketing copy" },
-            { id: 'chat', name: 'AI Growth Coach', icon: MessageSquare, desc: "Dialogue consulting" },
-            { id: 'connections', name: 'Connected Apps', icon: Globe, desc: "SaaS Database Sync" },
-            { id: 'settings', name: 'Settings', icon: Settings, desc: "Workspace Controls" },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
+          {/* Founder Mode Toggle */}
+          <div className="flex items-center gap-2 border-l border-slate-850 pl-4">
+            <span className="text-[10px] font-mono text-slate-500 font-bold hidden xl:inline uppercase tracking-widest">FOUNDER MODE:</span>
+            <div className="bg-slate-950 p-1 rounded-xl border border-slate-850 flex gap-1">
               <button
-                key={tab.id}
-                id={`tab-trigger-${tab.id}`}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2.5 px-4 py-3 text-xs font-semibold border-b-2 transition-all shrink-0 cursor-pointer ${
-                  isActive
-                    ? 'border-emerald-500 text-emerald-400 font-bold'
-                    : 'border-transparent text-slate-400 hover:text-white hover:border-slate-800'
+                onClick={() => setFounderMode('beginner')}
+                className={`px-3 py-1 text-[9px] font-mono font-bold rounded-lg transition-all cursor-pointer ${
+                  founderMode === 'beginner'
+                    ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/10'
+                    : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <div className="text-left">
-                  <span className="block leading-none">{tab.name}</span>
-                  <span className="hidden sm:block text-[9px] text-slate-500 font-normal mt-0.5">{tab.desc}</span>
-                </div>
+                BEGINNER
               </button>
-            );
-          })}
+              <button
+                onClick={() => setFounderMode('advanced')}
+                className={`px-3 py-1 text-[9px] font-mono font-bold rounded-lg transition-all cursor-pointer ${
+                  founderMode === 'advanced'
+                    ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow-md'
+                    : 'text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                ADVANCED
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Row 3: Render Active Tab Canvas */}
-        <div className="min-h-[450px]" id="tab-viewport">
+        {/* Mobile menu button */}
+        <button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl"
+        >
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </header>
+
+      {/* Main Workspace - Side-by-Side Grid Layout */}
+      <div className="flex-grow flex flex-col md:flex-row relative">
+        
+        {/* Left Drawer / Sidebar */}
+        <aside className={`
+          fixed md:relative inset-y-0 left-0 z-30
+          w-72 md:w-80 bg-slate-950 border-r border-slate-900/60 p-4 space-y-6 shrink-0
+          transition-transform duration-300 transform
+          ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          overflow-y-auto max-h-[calc(100vh-73px)] md:sticky md:top-[73px]
+        `} id="sidebar-navigation">
+          
+          {/* Active Workspace / App Selector inside Sidebar */}
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block font-bold">Active Workspace</span>
+            <AppSelector 
+              apps={apps}
+              activeAppId={activeAppId}
+              onSelectApp={handleSelectApp}
+              onConnectApp={handleConnectApp}
+            />
+          </div>
+
+          {/* Navigation Channels Accordion */}
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block font-bold mb-3 pl-1">OPERATING MODULES</span>
+            
+            {NAVIGATION_CHANNELS.map((channel) => {
+              const Icon = channel.icon;
+              const isCategoryActive = activeCategory === channel.id;
+
+              return (
+                <div key={channel.id} className="space-y-1">
+                  <button
+                    onClick={() => {
+                      setActiveCategory(channel.id);
+                      // Default to first sub-section
+                      if (channel.subSections.length > 0) {
+                        setActiveSubSection(channel.subSections[0].name);
+                      }
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-xl transition-all ${
+                      isCategoryActive
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow shadow-emerald-500/5'
+                        : 'text-slate-400 hover:text-white hover:bg-slate-900/40 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span>{channel.name}</span>
+                    </div>
+                    {channel.subSections.length > 0 && (
+                      <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isCategoryActive ? 'rotate-90 text-emerald-400' : 'text-slate-500'}`} />
+                    )}
+                  </button>
+
+                  {/* Subsections list (Only expanded when active category matches) */}
+                  <AnimatePresence initial={false}>
+                    {isCategoryActive && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                        className="overflow-hidden pl-7 space-y-0.5"
+                      >
+                        {channel.subSections.map((sub) => {
+                          const isSubActive = activeSubSection === sub.name;
+                          return (
+                            <button
+                              key={sub.name}
+                              onClick={() => {
+                                setActiveSubSection(sub.name);
+                                setMobileMenuOpen(false);
+                              }}
+                              className={`w-full text-left px-2.5 py-1.5 text-[11px] rounded-lg transition-all block cursor-pointer ${
+                                isSubActive
+                                  ? 'text-white font-bold bg-slate-900 border border-slate-800'
+                                  : 'text-slate-500 hover:text-slate-300'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="truncate">{sub.name}</span>
+                                {isSubActive && <span className="h-1 w-1 bg-emerald-500 rounded-full shrink-0 ml-1.5"></span>}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Quick Stats footer inside sidebar */}
+          <div className="pt-4 border-t border-slate-900/60 text-[10px] text-slate-500 font-mono space-y-1">
+            <div>MRR: <span className="text-white font-bold">${activeApp.metrics.mrr.toLocaleString()}</span></div>
+            <div>MAU: <span className="text-white font-bold">{activeApp.metrics.mau.toLocaleString()}</span></div>
+            <div>Churn: <span className="text-white font-bold">{activeApp.metrics.churn}%</span></div>
+          </div>
+        </aside>
+
+        {/* Content Canvas */}
+        <main className="flex-grow p-4 md:p-6 lg:p-8 max-w-5xl w-full mx-auto" id="main-content-pane">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeTab + activeAppId}
+              key={activeCategory + activeSubSection + activeAppId}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.15 }}
             >
-              {activeTab === 'agenda' && (
-                <DailyAgenda
-                  activeApp={activeApp}
-                  tasks={tasks}
-                  onToggleTask={handleToggleTask}
-                  onAddTask={handleAddTask}
-                  onDeleteTask={handleDeleteTask}
-                />
-              )}
-
-              {activeTab === 'dashboard' && (
-                <BusinessIntelligenceCenter
-                  activeApp={activeApp}
-                />
-              )}
-
-              {activeTab === 'recommendations' && (
-                <AiRecommendations
-                  activeApp={activeApp}
-                  recommendations={recommendations[activeAppId] || []}
-                  onSetRecommendations={(recs) => {
-                    setRecommendations(prev => ({
-                      ...prev,
-                      [activeAppId]: recs
-                    }));
-                  }}
-                  onAdoptAsTask={handleAdoptRecommendation}
-                />
-              )}
-
-              {activeTab === 'marketing' && (
-                <ContentStudio
-                  activeApp={activeApp}
-                  prefilledGoal={prefilledGoal}
-                  prefilledTone={prefilledTone}
-                  onClearPrefilled={handleClearPrefilled}
-                />
-              )}
-
-              {activeTab === 'chat' && (
-                <GrowthBrainChat
-                  activeApp={activeApp}
-                  chatHistory={chatHistory[activeAppId] || []}
-                  onAddChatMessage={handleAddChatMessage}
-                  onClearChatHistory={handleClearChatHistory}
-                  onSwitchTab={setActiveTab}
-                  onAddTask={handleAddTask}
-                  onPrefillCampaign={handlePrefillCampaign}
-                  onUpdateMetrics={handleUpdateMetrics}
-                />
-              )}
-
-              {activeTab === 'automation' && (
-                <AutomationCenter
-                  activeApp={activeApp}
-                  automations={automations}
-                  onSetAutomations={setAutomations}
-                />
-              )}
-
-              {activeTab === 'connections' && (
-                <ConnectedAppsMarketplace
-                  apps={apps}
-                  activeAppId={activeAppId}
-                  onSelectApp={handleSelectApp}
-                  onConnectApp={handleConnectApp}
-                />
-              )}
-
-              {activeTab === 'settings' && (
-                <SettingsPanel
-                  activeApp={activeApp}
-                  apps={apps}
-                  onSelectApp={handleSelectApp}
-                />
-              )}
+              <InteractiveCapabilitySimulator
+                activeCategory={activeCategory}
+                activeSubSection={activeSubSection}
+                activeApp={activeApp}
+                apps={apps}
+                recommendations={recommendations[activeAppId] || []}
+                tasks={tasks}
+                chatHistory={chatHistory[activeAppId] || []}
+                automations={automations}
+                founderMode={founderMode}
+                onToggleFounderMode={(mode) => setFounderMode(mode)}
+                onSelectApp={handleSelectApp}
+                onConnectApp={handleConnectApp}
+                onToggleTask={handleToggleTask}
+                onAddTask={handleAddTask}
+                onDeleteTask={handleDeleteTask}
+                onSetRecommendations={(recs) => {
+                  setRecommendations(prev => ({
+                    ...prev,
+                    [activeAppId]: recs
+                  }));
+                }}
+                onAdoptAsTask={handleAdoptRecommendation}
+                onAddChatMessage={handleAddChatMessage}
+                onClearChatHistory={handleClearChatHistory}
+                onSwitchTab={(tabId) => {
+                  // Proxy legacy tab routing to modern structure
+                  if (tabId === 'dashboard') {
+                    setActiveCategory('ANALYZE');
+                    setActiveSubSection('Business Dashboard');
+                  } else if (tabId === 'marketing') {
+                    setActiveCategory('CREATE');
+                    setActiveSubSection('Content Studio');
+                  } else if (tabId === 'chat') {
+                    setActiveCategory('AUTOMATE');
+                    setActiveSubSection('AI Employees/Agents');
+                  } else {
+                    setActiveCategory('HOME');
+                    setActiveSubSection('Daily Briefing');
+                  }
+                }}
+                onPrefillCampaign={handlePrefillCampaign}
+                onUpdateMetrics={handleUpdateMetrics}
+                onSetAutomations={setAutomations}
+                prefilledGoal={prefilledGoal}
+                prefilledTone={prefilledTone}
+                onClearPrefilled={handleClearPrefilled}
+              />
             </motion.div>
           </AnimatePresence>
-        </div>
-
-
-      </main>
+        </main>
+      </div>
 
       {/* Humble, Professional Footer */}
       <footer className="bg-slate-950 border-t border-slate-900/60 py-6 text-center text-[11px] text-slate-500 font-mono tracking-wider">
@@ -404,4 +578,3 @@ export default function App() {
     </div>
   );
 }
-

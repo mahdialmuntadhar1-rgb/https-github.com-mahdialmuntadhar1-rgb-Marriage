@@ -229,7 +229,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
       const promptLower = aiPrompt.toLowerCase();
       let draftName = 'Custom Onboarding Loop';
       let draftTrigger = 'User registers';
-      let draftActions = ['Send welcome nudge', 'Log diagnostic metadata'];
+      let draftActions = ['Send welcome nudge', 'Review initial registration answers'];
 
       if (promptLower.includes('cancel') || promptLower.includes('delete') || promptLower.includes('churn')) {
         draftName = 'Subscription Churn Preventer';
@@ -243,9 +243,9 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
         draftName = 'Dormant User CPR Loop';
         draftTrigger = 'User inactive for 7 days';
         draftActions = [
-          'Scan user activity history telemetry log',
+          'Identify previous active interests',
           'Deploy urgency promo link via optimized channel (WhatsApp priority)',
-          'Measure open feedback loop'
+          'Monitor response'
         ];
       } else if (promptLower.includes('milestone') || promptLower.includes('lesson') || promptLower.includes('match') || promptLower.includes('success')) {
         draftName = 'User Milestone Celebration';
@@ -261,8 +261,8 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
         draftTrigger = 'User registers';
         draftActions = [
           `Send custom tailored campaign copy aligned to: "${aiPrompt}"`,
-          'Monitor conversion velocity rate in real-time',
-          'Apply loyalty engagement tags'
+          'Track conversion lift',
+          'Add to loyal customer group'
         ];
       }
 
@@ -281,7 +281,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
       setFormActions([
         'Generate custom referral codes',
         'Email discount package to target segment',
-        'Register trigger telemetry stats'
+        'Log flow success step'
       ]);
       setAiSuccessMessage('AI suggested a dynamic Loyalty Retention Cycle based on local models.');
     } finally {
@@ -379,13 +379,13 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
           </div>
           <div>
             <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-              AI Marketing Automation Center
+              AI Automations
               <span className="text-[9px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full uppercase tracking-widest">
-                Flow Controller
+                Customer Journeys
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Design and activate self-optimizing, trigger-based campaigns. AI will automatically construct, translate, and route outreach copy.
+              Design and launch automatic customer messages. Our AI will automatically write and send customized responses when customers take action.
             </p>
           </div>
         </div>
@@ -396,7 +396,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
           className="flex items-center gap-2 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-xs shadow-lg shadow-emerald-500/10 transition-all cursor-pointer self-start md:self-auto hover:-translate-y-0.5 active:translate-y-0"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
-          <span>Create Automation</span>
+          <span>New Automatic Flow</span>
         </button>
       </div>
 
@@ -425,7 +425,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
             </div>
 
             <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider hidden sm:inline">
-              Sync: <span className="text-emerald-400 font-bold">Active Engine</span>
+              Status: <span className="text-emerald-400 font-bold">Active</span>
             </span>
           </div>
 
@@ -467,7 +467,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
 
                     {/* Actions List */}
                     <div className="my-4 bg-slate-950/80 border border-slate-850/80 rounded-xl p-3 space-y-2 pl-4">
-                      <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block -ml-1">AI Automated Actions</span>
+                      <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block -ml-1">Automated Actions</span>
                       <ul className="space-y-1.5 text-[10px] text-slate-300">
                         {auto.actions.map((act, idx) => (
                           <li key={idx} className="flex items-start gap-1.5 leading-normal">
@@ -482,7 +482,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                     <div className="flex items-center justify-between pt-3 border-t border-slate-800/60 pl-1.5">
                       {/* Stats */}
                       <div className="space-y-0.5">
-                        <span className="text-[8px] font-mono text-slate-500 block">RUN COUNT</span>
+                        <span className="text-[8px] font-mono text-slate-500 block">TIMES RUN</span>
                         <div className="flex items-center gap-1 text-[10px] font-mono text-slate-300">
                           <CheckCircle className="w-3 h-3 text-emerald-400" />
                           <span>{auto.runsCount.toLocaleString()} times</span>
@@ -501,7 +501,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                               ? 'bg-slate-950 text-emerald-400 hover:text-white border border-emerald-950/40 hover:bg-slate-850'
                               : 'text-slate-600 bg-slate-950/50 cursor-not-allowed border border-slate-900'
                           }`}
-                          title={isActive ? 'Trigger Test Simulation' : 'Activate workflow to dry run'}
+                          title={isActive ? 'Test Automatic Message' : 'Activate flow to test'}
                         >
                           <Play className="w-3.5 h-3.5 fill-current" />
                         </button>
@@ -510,7 +510,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                         <button
                           onClick={() => handleOpenEdit(auto)}
                           className="p-1.5 bg-slate-950 hover:bg-slate-850 border border-slate-850 hover:border-slate-700 text-slate-400 hover:text-white rounded-lg text-xs transition-colors cursor-pointer"
-                          title="Edit Workflow Parameters"
+                          title="Edit Settings"
                         >
                           <Edit className="w-3.5 h-3.5" />
                         </button>
@@ -523,7 +523,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                               ? 'bg-amber-500/5 hover:bg-amber-500/15 text-amber-400 border-amber-500/10'
                               : 'bg-emerald-500/5 hover:bg-emerald-500/15 text-emerald-400 border-emerald-500/10'
                           }`}
-                          title={isActive ? 'Pause Automation' : 'Activate Automation'}
+                          title={isActive ? 'Pause Flow' : 'Activate Flow'}
                         >
                           {isActive ? <Pause className="w-3.5 h-3.5" /> : <Check className="w-3.5 h-3.5" />}
                         </button>
@@ -571,9 +571,9 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
           <div className="bg-slate-900 border border-slate-850 rounded-3xl p-5 flex items-start gap-3.5">
             <Info className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             <div className="space-y-1 text-xs">
-              <h5 className="font-bold text-white">How AI-Powered Automation works</h5>
+              <h5 className="font-bold text-white">How Automatic Flows Work</h5>
               <p className="text-slate-400 leading-relaxed text-[11px]">
-                Growth OS monitors your user analytics tables behind the scenes. When a target trigger fires, the server-side Gemini module fetches user metrics, selects the ideal channel (WhatsApp/SMS/Email), and drafts ultra-personalized conversion-focused copy in real-time.
+                Your business system monitors when important actions happen (like signing up or canceling). When a trigger fires, our AI automatically writes a tailored message to help you guide, help, or win back that customer.
               </p>
             </div>
           </div>
@@ -592,9 +592,9 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
             <div>
               <div className="flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-emerald-400" />
-                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest font-bold">Trace Diagnostics Console</span>
+                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest font-bold">Dry Run Screen</span>
               </div>
-              <h3 className="text-xs font-bold text-white mt-1">Live AI Dry Run Monitor</h3>
+              <h3 className="text-xs font-bold text-white mt-1">Live Preview Test</h3>
             </div>
 
             {/* Display Simulator Body */}
@@ -620,7 +620,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                   {simulationLoading && (
                     <div className="flex items-center gap-1.5 text-emerald-400 animate-pulse font-bold mt-1">
                       <RefreshCw className="w-3 h-3 animate-spin" />
-                      <span>AI Engine thinking... generating telemetry path...</span>
+                      <span>AI preparing simulation...</span>
                     </div>
                   )}
                 </div>
@@ -632,7 +632,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-slate-950 border border-slate-850 rounded-xl p-3 space-y-2"
                   >
-                    <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block">Simulated Recipient Profile</span>
+                    <span className="text-[8px] font-mono font-bold text-slate-500 uppercase tracking-widest block">Test Customer Profile</span>
                     <div className="flex items-center gap-2.5">
                       <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center font-bold text-emerald-400 text-xs">
                         {simulationResult.mockUser.name.charAt(0)}
@@ -643,7 +643,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                       </div>
                     </div>
                     <p className="text-[10px] text-slate-400 bg-slate-900/60 p-2 rounded-lg border border-slate-900">
-                      <span className="font-bold text-slate-200">User Segment Context: </span>
+                      <span className="font-bold text-slate-200">Customer Background: </span>
                       {simulationResult.mockUser.meta}
                     </p>
                   </motion.div>
@@ -661,7 +661,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                       <div className="flex items-center gap-1.5">
                         <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
                         <span className="text-[10px] font-bold text-white uppercase tracking-wider">
-                          Outreach Copy ({simulationResult.generatedCopy.channel})
+                          Generated Message ({simulationResult.generatedCopy.channel})
                         </span>
                       </div>
                       <button
@@ -672,7 +672,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                             : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
                         }`}
                       >
-                        {copiedSim ? 'Copied✓' : 'Copy copy'}
+                        {copiedSim ? 'Copied✓' : 'Copy message'}
                       </button>
                     </div>
 
@@ -700,7 +700,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
 
                       {/* Prediction Tag */}
                       <div className="text-right">
-                        <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">EVALUATION LIFT</span>
+                        <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block">PREDICTED LIFT</span>
                         <span className="text-xs font-black text-emerald-400 font-mono tracking-tighter">
                           {simulationResult.prediction.score}
                         </span>
@@ -708,7 +708,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                     </div>
 
                     <div className="bg-emerald-500/5 border border-emerald-500/10 p-2 rounded-lg text-[9px] text-slate-400 leading-relaxed">
-                      <span className="font-bold text-emerald-400">AI Reasoning:</span> {simulationResult.prediction.reasoning}
+                      <span className="font-bold text-emerald-400">Why This Works:</span> {simulationResult.prediction.reasoning}
                     </div>
 
                   </motion.div>
@@ -722,7 +722,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                   }}
                   className="w-full py-2 bg-slate-950 border border-slate-850 hover:border-slate-800 hover:text-white text-slate-400 text-xs font-bold rounded-xl transition-all cursor-pointer"
                 >
-                  Close Console
+                  Close Preview
                 </button>
 
               </div>
@@ -732,9 +732,9 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                   <Terminal className="w-6 h-6 text-slate-700 animate-pulse" />
                 </div>
                 <div className="max-w-xs">
-                  <h4 className="text-xs font-bold text-slate-300">No active trace running</h4>
+                  <h4 className="text-xs font-bold text-slate-300">No active test running</h4>
                   <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    Select an active automation card on the left and click the <Play className="w-2.5 h-2.5 inline fill-current text-emerald-400" /> **Play** button to dry-run trace logs and inspect copy parameters.
+                    Select an active automatic flow on the left and click the <Play className="w-2.5 h-2.5 inline fill-current text-emerald-400" /> **Play** button to test it and see how it writes messages.
                   </p>
                 </div>
               </div>
@@ -757,17 +757,15 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.15 }}
               className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative"
-            >
-              
-              {/* Modal Header */}
+            >              {/* Modal Header */}
               <div className="bg-slate-950 p-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Cpu className="w-5 h-5 text-emerald-400" />
                   <div>
                     <h3 className="text-sm font-bold text-white">
-                      {editingAutomation ? 'Edit Marketing Flow' : 'Create AI Automation Workflow'}
+                      {editingAutomation ? 'Edit Automatic Flow' : 'Create Automatic Flow'}
                     </h3>
-                    <p className="text-[11px] text-slate-500 mt-0.5">Align triggers and AI responses to optimize conversion</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">Set up automatic responses when customers take action</p>
                   </div>
                 </div>
                 <button
@@ -786,7 +784,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                   
                   {/* Automation Name */}
                   <div>
-                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">Workflow Name</label>
+                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">Flow Name</label>
                     <input
                       type="text"
                       required
@@ -799,7 +797,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
 
                   {/* Trigger Select */}
                   <div>
-                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">When: Trigger Event</label>
+                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">When this happens:</label>
                     <select
                       value={formTrigger}
                       onChange={(e) => setFormTrigger(e.target.value)}
@@ -828,7 +826,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
 
                   {/* Action Steps Form list */}
                   <div className="space-y-2">
-                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">AI Action Flow Sequences</label>
+                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">Actions AI will perform:</label>
                     
                     <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
                       {formActions.map((act, idx) => (
@@ -877,7 +875,7 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                       type="submit"
                       className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-xs transition-all cursor-pointer shadow shadow-emerald-500/10"
                     >
-                      {editingAutomation ? 'Save Flow Changes' : 'Publish New Automation'}
+                      {editingAutomation ? 'Save Flow' : 'Activate New Flow'}
                     </button>
                   </div>
 
@@ -888,10 +886,10 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                   <div className="space-y-2">
                     <div className="flex items-center gap-1.5">
                       <Sparkles className="w-4 h-4 text-emerald-400" />
-                      <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">AI Copilot Blueprint Draft</span>
+                      <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Describe Your Goal</span>
                     </div>
                     <p className="text-[11.5px] text-slate-400 leading-relaxed">
-                      Struggling to design trigger steps? Describe what you want in simple human words, and Gemini will instantly build the trigger, name, and optimized actions!
+                      Want help? Describe what you want to achieve in simple words, and AI will build the flow for you.
                     </p>
                     
                     <textarea
@@ -919,12 +917,12 @@ export default function AutomationCenter({ activeApp, automations, onSetAutomati
                       {aiGenerating ? (
                         <>
                           <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                          <span>Gemini drafting flow...</span>
+                          <span>AI designing flow...</span>
                         </>
                       ) : (
                         <>
                           <Sparkles className="w-3.5 h-3.5" />
-                          <span>Draft flow with AI Assist</span>
+                          <span>Design Flow with AI Assist</span>
                         </>
                       )}
                     </button>

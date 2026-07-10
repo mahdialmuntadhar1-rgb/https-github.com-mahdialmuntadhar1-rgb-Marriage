@@ -74,22 +74,22 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
   const [newMemberRole, setNewMemberRole] = useState<'Owner' | 'Growth Lead' | 'Product Manager' | 'Marketing Specialist'>('Marketing Specialist');
 
   // AI Preferences
-  const [selectedModel, setSelectedModel] = useState('models/gemini-3.5-flash');
+  const [selectedModel, setSelectedModel] = useState('fast-balanced');
   const [reportDepth, setReportDepth] = useState<'summarized' | 'comprehensive' | 'hyper-detailed'>('comprehensive');
   const [geoPriority, setGeoPriority] = useState('Iraq (prioritize Baghdad, Basra, Erbil segments)');
   const [strictPrivacy, setStrictPrivacy] = useState(true);
 
   // Automation Rules
   const [rules, setRules] = useState<AutomationRule[]>([
-    { id: '1', name: '10% Drop in Signups Alert', triggerEvent: 'Telemetry detects signup drops over 48h', action: 'Send urgent SMS alert to Owner', enabled: true },
-    { id: '2', name: 'New Milestone Content Suggestion', triggerEvent: 'Cohorts retention increases > 12%', action: 'Auto-generate draft copy in Content Studio', enabled: true },
+    { id: '1', name: '10% Drop in Signups Alert', triggerEvent: 'Signups drop by 10% over 48 hours', action: 'Send urgent alert to Owner', enabled: true },
+    { id: '2', name: 'New Milestone Content Suggestion', triggerEvent: 'Customer retention increases by over 12%', action: 'Auto-generate draft copy in Content Studio', enabled: true },
     { id: '3', name: 'Ad-Spend Conversion Watchdog', triggerEvent: 'Conversion drops under 4%', action: 'Pause secondary Meta campaigns', enabled: false }
   ]);
 
   // API Connections
   const [stripeConnected, setStripeConnected] = useState(true);
   const [metaConnected, setMetaConnected] = useState(true);
-  const [customWebhookUrl, setCustomWebhookUrl] = useState('https://hooks.growth-os.com/v1/telemetry');
+  const [customWebhookUrl, setCustomWebhookUrl] = useState('https://hooks.growth-os.com/v1/sync');
   
   // Save Notification Toast state
   const [showToast, setShowToast] = useState(false);
@@ -156,11 +156,11 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
             <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
               Workspace Settings & Admin Control
               <span className="text-[9px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                System Conf
+                Workspace Conf
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Configure basic account preferences, manage team access scopes, adjust automatic Gemini rules, and view security parameters.
+              Configure basic account preferences, manage team access, adjust automatic rules, and check security.
             </p>
           </div>
         </div>
@@ -191,11 +191,11 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           {[
             { id: 'account', name: 'Account', icon: User, desc: 'Profile & workspace metrics' },
             { id: 'team', name: 'Team Members', icon: Users, desc: 'Workspace collaborators' },
-            { id: 'apps', name: 'Connected Apps', icon: Layers, desc: 'Manage database tunnels' },
-            { id: 'ai', name: 'AI Preferences', icon: Sparkles, desc: 'Gemini cognitive tuning' },
-            { id: 'automation', name: 'Automation Rules', icon: Cpu, desc: 'Alert triggers & webhooks' },
-            { id: 'api', name: 'API Connections', icon: Link2, desc: 'Integration endpoints' },
-            { id: 'security', name: 'Security', icon: ShieldCheck, desc: 'Authentication & TLS' },
+            { id: 'apps', name: 'Connected Apps', icon: Layers, desc: 'Manage linked apps' },
+            { id: 'ai', name: 'AI Preferences', icon: Sparkles, desc: 'AI helper preferences' },
+            { id: 'automation', name: 'Automation Rules', icon: Cpu, desc: 'Alert rules & actions' },
+            { id: 'api', name: 'API Connections', icon: Link2, desc: 'Linked platforms' },
+            { id: 'security', name: 'Security', icon: ShieldCheck, desc: 'Safety & verification' },
             { id: 'billing', name: 'Billing', icon: CreditCard, desc: 'Subscription & limits' }
           ].map((sec) => {
             const Icon = sec.icon;
@@ -234,9 +234,9 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           
           {/* Section Header */}
           <div className="border-b border-slate-850 pb-4">
-            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block font-bold">DIRECTORY NODE</span>
+            <span className="text-[8px] font-mono text-slate-500 uppercase tracking-widest block font-bold">SETTINGS CATEGORY</span>
             <h3 className="text-sm font-black text-white mt-1 capitalize flex items-center gap-2">
-              {activeSection === 'api' ? 'API Connections & Integrations' : activeSection} Settings
+              {activeSection === 'api' ? 'Platform Connections & Integrations' : activeSection} Settings
             </h3>
           </div>
 
@@ -415,7 +415,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           {/* 3. CONNECTED APPS LIST */}
           {activeSection === 'apps' && (
             <div className="space-y-4">
-              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">SaaS Cluster Applications Status</span>
+              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Connected Apps Status</span>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {apps.map((app) => {
@@ -435,7 +435,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                       </div>
 
                       <div className="flex items-center justify-between border-t border-slate-900 pt-2 text-[10px] text-slate-500 font-mono">
-                        <span>Cluster ID: app_{app.id}</span>
+                        <span>Linked ID: app_{app.id}</span>
                         {isCurrent ? (
                           <span className="text-emerald-400 font-bold">Currently Inspected</span>
                         ) : (
@@ -462,15 +462,15 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
             <div className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Cognitive Model Alias</label>
+                  <label className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">AI Thinking Speed</label>
                   <select
                     value={selectedModel}
                     onChange={(e) => setSelectedModel(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
-                    <option value="models/gemini-3.5-flash">models/gemini-3.5-flash (Ultra-fast, analytical)</option>
-                    <option value="models/gemini-2.5-pro">models/gemini-2.5-pro (High reasoning, verbose)</option>
-                    <option value="models/gemini-2.5-flash">models/gemini-2.5-flash (Legacy fast)</option>
+                    <option value="fast-balanced">Fast & Balanced (Recommended)</option>
+                    <option value="deep-thinker">Deep Thinker (Detailed insights)</option>
+                    <option value="quick-check">Quick Checks Only</option>
                   </select>
                 </div>
 
@@ -482,8 +482,8 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                     className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="summarized">Summarized (Actionable, key pointers only)</option>
-                    <option value="comprehensive">Comprehensive (Includes cohort tables, psychological root causes)</option>
-                    <option value="hyper-detailed">Hyper-Detailed (Full market analysis, secondary routes)</option>
+                    <option value="comprehensive">Comprehensive (Includes cohort tables, customer root causes)</option>
+                    <option value="hyper-detailed">Hyper-Detailed (Full market analysis, growth plans)</option>
                   </select>
                 </div>
               </div>
@@ -499,14 +499,14 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
               </div>
 
               <div className="space-y-3 pt-2">
-                <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Privacy Guardrails</span>
+                <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Privacy Shield</span>
                 
                 <div className="p-4 bg-slate-950/60 border border-slate-850 rounded-2xl flex items-center justify-between">
                   <div className="flex items-start gap-3">
                     <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
                       <h5 className="text-xs font-bold text-white">PII Data Scrubbing Active</h5>
-                      <p className="text-[10px] text-slate-400 leading-normal">Growth OS automatically strips emails, clear passwords, and user addresses before telemetry hits Gemini endpoints.</p>
+                      <p className="text-[10px] text-slate-400 leading-normal">Growth OS automatically strips emails, clear passwords, and user addresses before data is sent to AI services.</p>
                     </div>
                   </div>
 
@@ -528,7 +528,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           {/* 5. AUTOMATION RULES */}
           {activeSection === 'automation' && (
             <div className="space-y-4">
-              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Workspace Trigger Events</span>
+              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Automatic Event Helpers</span>
               
               <div className="space-y-2.5">
                 {rules.map((rule) => (
@@ -572,7 +572,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           {/* 6. API CONNECTIONS */}
           {activeSection === 'api' && (
             <div className="space-y-5">
-              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Integration Endpoints</span>
+              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Platform Integrations</span>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
@@ -582,13 +582,13 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                 }`}>
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white">Stripe Live Webhooks</span>
+                      <span className="text-xs font-bold text-white">Stripe Integration</span>
                       <span className="text-[8px] font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded">
                         CONNECTED
                       </span>
                     </div>
                     <p className="text-[10.5px] text-slate-400 mt-1 leading-normal">
-                      Pulls transactional checkout success rates, invoice sizes, and subscription status anomalies.
+                      Syncs sales history, subscription status changes, and checkout activity.
                     </p>
                   </div>
                   <div className="flex items-center justify-between border-t border-slate-900 pt-2">
@@ -600,7 +600,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                       }}
                       className="text-[9.5px] font-mono text-rose-400 hover:text-rose-300 transition-all cursor-pointer"
                     >
-                      {stripeConnected ? 'Revoke Client' : 'Authorize Pipeline'}
+                      {stripeConnected ? 'Disconnect' : 'Connect'}
                     </button>
                   </div>
                 </div>
@@ -617,7 +617,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                       </span>
                     </div>
                     <p className="text-[10.5px] text-slate-400 mt-1 leading-normal">
-                      Syncs active ad campaigns CTR frequencies and target conversion multipliers.
+                      Syncs advertising engagement rates and campaign conversion trends.
                     </p>
                   </div>
                   <div className="flex items-center justify-between border-t border-slate-900 pt-2">
@@ -629,7 +629,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                       }}
                       className="text-[9.5px] font-mono text-rose-400 hover:text-rose-300 transition-all cursor-pointer"
                     >
-                      {metaConnected ? 'Revoke Client' : 'Authorize Pipeline'}
+                      {metaConnected ? 'Disconnect' : 'Connect'}
                     </button>
                   </div>
                 </div>
@@ -647,11 +647,11 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                   >
                     <div className="flex items-center gap-1.5 text-amber-400">
                       <Info className="w-3.5 h-3.5" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Advanced Config (API Hooks)</span>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Advanced Connection Link</span>
                     </div>
 
                     <div>
-                      <label className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-1">Custom Webhook Target URL</label>
+                      <label className="block text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-1">Custom Connection Destination URL</label>
                       <input
                         type="url"
                         value={customWebhookUrl}
@@ -668,7 +668,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
           {/* 7. SECURITY */}
           {activeSection === 'security' && (
             <div className="space-y-5">
-              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Security & Cryptography</span>
+              <span className="text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider block">Security & Protection</span>
 
               <div className="space-y-3">
                 <div className="p-4 bg-slate-950/60 border border-slate-850 rounded-2xl flex items-center justify-between">
@@ -676,7 +676,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                     <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
                       <h5 className="text-xs font-bold text-white">Strict MFA Requirements</h5>
-                      <p className="text-[10px] text-slate-400 leading-normal">Force all invited team analysts to authenticate via physical Authenticator tokens or secure SMS keys.</p>
+                      <p className="text-[10px] text-slate-400 leading-normal">Require all team members to log in with secure verification codes.</p>
                     </div>
                   </div>
 
@@ -709,8 +709,8 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
                     exit={{ opacity: 0, height: 0 }}
                     className="border-t border-slate-850 pt-4 space-y-2 overflow-hidden text-[10px] font-mono text-slate-500 leading-relaxed"
                   >
-                    <span className="font-bold text-slate-400">CIPHER STANDARDS:</span>
-                    <p>ECDHE-RSA-AES128-GCM-SHA256 (TLS v1.3) • Certificates updated automatically every 90 days. Next renewal: September 15, 2026.</p>
+                    <span className="font-bold text-slate-400">SECURITY CERTIFICATION:</span>
+                    <p>ECDHE-RSA-AES128-GCM-SHA256 • Certificates updated automatically every 90 days. Next renewal: September 15, 2026.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -729,7 +729,7 @@ export default function SettingsPanel({ activeApp, apps, onSelectApp }: Settings
 
                 <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">WORKSPACE PLAN</span>
                 <h4 className="text-lg font-black text-white mt-1">Growth OS Enterprise Pro</h4>
-                <p className="text-xs text-slate-400 mt-2 max-w-md">Unlimited connected applications, custom telemetry tunnels, instant multi-tenant sync, and full-spectrum Gemini report generation.</p>
+                <p className="text-xs text-slate-400 mt-2 max-w-md">Unlimited connected apps, custom visual integrations, instant sync, and full-spectrum custom business recommendations.</p>
                 
                 <div className="flex items-baseline gap-1 mt-4">
                   <span className="text-2xl font-mono font-black text-emerald-400">$299</span>

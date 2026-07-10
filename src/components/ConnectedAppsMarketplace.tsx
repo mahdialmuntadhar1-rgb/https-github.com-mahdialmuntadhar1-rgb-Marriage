@@ -52,37 +52,37 @@ interface IntegrationTemplate {
 const INTEGRATION_TEMPLATES: IntegrationTemplate[] = [
   {
     id: 'postgres_db',
-    name: 'Custom PostgreSQL Database',
-    category: 'Database',
+    name: 'Customer CRM & Contact Database',
+    category: 'Customers',
     businessModel: 'SaaS',
-    description: 'Connect direct read-replicas of your product tables to parse active cohort logs.',
+    description: 'Connect your customer records, signup lists, or contacts to let AI understand your audience.',
     icon: Database,
-    defaultCapabilities: ['Users', 'Analytics', 'Retention Logs']
+    defaultCapabilities: ['Users', 'Analytics', 'Retention Tracks']
   },
   {
     id: 'supabase_app',
-    name: 'Supabase Project',
-    category: 'Backend',
+    name: 'Web Portal / Sign-up Website',
+    category: 'Website',
     businessModel: 'Mobile App',
-    description: 'Sync postgres tables, edge functions telemetry, and auth tables instantly.',
+    description: 'Sync your website\'s signups and visitor actions to identify growth opportunities.',
     icon: Layers,
     defaultCapabilities: ['Users', 'Analytics', 'Content']
   },
   {
     id: 'firebase_app',
-    name: 'Firebase Firestore',
-    category: 'Backend',
+    name: 'E-Commerce Storefront',
+    category: 'Sales',
     businessModel: 'SaaS',
-    description: 'Stream live collection documents to feed the AI diagnostic intelligence engine.',
+    description: 'Stream order volumes, customer purchases, and product catalogs to feed the AI growth engine.',
     icon: AppWindow,
     defaultCapabilities: ['Users', 'Analytics', 'Campaigns']
   },
   {
     id: 'custom_api',
-    name: 'Custom REST Endpoint',
-    category: 'API Integration',
+    name: 'Custom Software / Portal Link',
+    category: 'Software Link',
     businessModel: 'SaaS/B2B',
-    description: 'Trigger periodic webhooks to pull active client usage data.',
+    description: 'Connect other custom digital tools where your customers interact.',
     icon: Terminal,
     defaultCapabilities: ['Users', 'Analytics', 'Content', 'Campaigns']
   }
@@ -139,7 +139,7 @@ export default function ConnectedAppsMarketplace({
 
   const handleFinishWizard = () => {
     const finalName = customAppName || (INTEGRATION_TEMPLATES.find(t => t.id === selectedTemplate)?.name || 'New App');
-    const finalDesc = customAppDesc || 'Synced workspace processing custom user events and telemetry streams.';
+    const finalDesc = customAppDesc || 'Synced workspace processing custom user events and customer activity.';
     const finalAudience = customAppAudience || 'Active premium subscribers and newly registered checkout prospects.';
     
     onConnectApp({
@@ -313,7 +313,7 @@ export default function ConnectedAppsMarketplace({
                         {isActive ? (
                           <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 font-mono">
                             <CheckCircle2 className="w-3.5 h-3.5" />
-                            <span>ACTIVE ENVIRONMENT</span>
+                            <span>ACTIVE SYSTEM</span>
                           </div>
                         ) : (
                           <button
@@ -335,8 +335,8 @@ export default function ConnectedAppsMarketplace({
             <div className="bg-slate-950 border border-slate-850 rounded-2xl p-4.5 flex items-start gap-3.5">
               <Lock className="w-4.5 h-4.5 text-slate-500 shrink-0 mt-0.5" />
               <div className="text-[11px] text-slate-400 leading-relaxed">
-                <span className="font-bold text-slate-300 block mb-0.5">TLS 1.3 Encryption active for all connected datastores</span>
-                Growth OS secures all tenant datastores in fully isolated Docker micro-sandboxes. We only retrieve non-PII diagnostic metrics such as event logs, retention frequencies, and checkout dropout timelines.
+                <span className="font-bold text-slate-300 block mb-0.5">Bank-Grade Encryption Active</span>
+                Growth OS secures all tenant datastores in fully isolated cloud micro-sandboxes. We only retrieve non-PII diagnostic metrics such as event trends, retention frequencies, and checkout dropout timelines.
               </div>
             </div>
           </motion.div>
@@ -352,8 +352,8 @@ export default function ConnectedAppsMarketplace({
             {/* Wizard Header Status Bar */}
             <div className="p-6 border-b border-slate-800 bg-slate-950/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h3 className="text-sm font-black text-white tracking-tight">SaaS Application Connection Wizard</h3>
-                <p className="text-slate-400 text-xs mt-1">Provision a secure growth pipeline in less than two minutes.</p>
+                <h3 className="text-sm font-black text-white tracking-tight">Application Connection Setup</h3>
+                <p className="text-slate-400 text-xs mt-1">Link your platform and activate smart business metrics in seconds.</p>
               </div>
               <button
                 onClick={() => setShowWizard(false)}
@@ -401,8 +401,8 @@ export default function ConnectedAppsMarketplace({
                   className="space-y-5"
                 >
                   <div className="space-y-1">
-                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 1: Choose Datastore Template</h4>
-                    <p className="text-xs text-slate-400">Select one of our secure, native platform templates or register a custom API webhook endpoint.</p>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 1: Choose App Template</h4>
+                    <p className="text-xs text-slate-400">Select an app category template or link a custom system.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -516,15 +516,15 @@ export default function ConnectedAppsMarketplace({
                   className="space-y-5"
                 >
                   <div className="space-y-1">
-                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 2: Authenticate Datastore Pipeline</h4>
-                    <p className="text-xs text-slate-400">Configure read-only credentials to verify secure socket tunnel handshake with your backend database cluster.</p>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 2: Link & Authenticate</h4>
+                    <p className="text-xs text-slate-400">Provide access keys or credentials so the AI can securely sync. Your data is always encrypted and read-only.</p>
                   </div>
 
                   <div className="bg-slate-950 border border-slate-850 rounded-2xl p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2 space-y-4">
                       <div className="grid grid-cols-3 gap-3">
                         <div className="col-span-2">
-                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Database Cluster Host</label>
+                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">App Host Link / URL</label>
                           <input
                             type="text"
                             value={dbHost}
@@ -533,7 +533,7 @@ export default function ConnectedAppsMarketplace({
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Port</label>
+                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Access ID</label>
                           <input
                             type="text"
                             value={dbPort}
@@ -545,7 +545,7 @@ export default function ConnectedAppsMarketplace({
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Database Name</label>
+                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Workspace Name</label>
                           <input
                             type="text"
                             value={dbName}
@@ -554,7 +554,7 @@ export default function ConnectedAppsMarketplace({
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Read User</label>
+                          <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">User ID / Admin Email</label>
                           <input
                             type="text"
                             value={dbUser}
@@ -565,7 +565,7 @@ export default function ConnectedAppsMarketplace({
                       </div>
 
                       <div>
-                        <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Password / API Secret</label>
+                        <label className="block text-[9px] font-mono text-slate-500 uppercase tracking-wider mb-1">Access Secret / Key</label>
                         <div className="relative">
                           <input
                             type="password"
@@ -580,8 +580,8 @@ export default function ConnectedAppsMarketplace({
 
                     <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Connection Diagnostics</span>
-                        <p className="text-[10px] text-slate-500 leading-relaxed">Ensure IP whitelisting is toggled. Growth OS connects from static CIDR range <code className="text-emerald-400 font-mono bg-slate-950 px-1 rounded">34.120.44.0/24</code>.</p>
+                        <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Connection Assistance</span>
+                        <p className="text-[10px] text-slate-500 leading-relaxed">If your system requires firewall permission, authorize connections from our secure address: <code className="text-emerald-400 font-mono bg-slate-950 px-1 rounded">34.120.44.0/24</code>.</p>
                       </div>
 
                       <div className="pt-4 space-y-2">
@@ -594,12 +594,12 @@ export default function ConnectedAppsMarketplace({
                           {testingConnection ? (
                             <>
                               <RefreshCw className="w-3.5 h-3.5 animate-spin text-emerald-400" />
-                              <span>Handshaking...</span>
+                              <span>Syncing...</span>
                             </>
                           ) : (
                             <>
                               <Activity className="w-3.5 h-3.5 text-emerald-400" />
-                              <span>Test API connection</span>
+                              <span>Test Secure Connection</span>
                             </>
                           )}
                         </button>
@@ -612,7 +612,7 @@ export default function ConnectedAppsMarketplace({
                               exit={{ opacity: 0 }}
                               className="text-[9.5px] font-mono text-emerald-400 bg-emerald-500/5 border border-emerald-500/20 px-2 py-1.5 rounded-md text-center"
                             >
-                              ✓ TLS 1.3 Handshake verified!
+                              ✓ Secure connection verified!
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -630,8 +630,8 @@ export default function ConnectedAppsMarketplace({
                   className="space-y-5"
                 >
                   <div className="space-y-1">
-                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 3: Define Sync Scope Scopes</h4>
-                    <p className="text-xs text-slate-400">Authorize specific query operations. Disable scopes you wish to restrict from the diagnostic pipelines.</p>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 3: Define What to Sync</h4>
+                    <p className="text-xs text-slate-400">Select the customer records and metrics you want our AI to read and help with. Unchecked items remain private.</p>
                   </div>
 
                   <div className="space-y-3.5">
@@ -639,25 +639,25 @@ export default function ConnectedAppsMarketplace({
                       {
                         key: 'users',
                         title: 'Users & Profile Data',
-                        desc: 'Read core user demographics, sign up stamps, and verified status configurations.',
+                        desc: 'Read core user demographics, signup lists, and user configurations.',
                         icon: UserCheck
                       },
                       {
                         key: 'analytics',
-                        title: 'Cohort & Telemetry Logs',
-                        desc: 'Analyze page views, feature interactions, and chronological metric milestones.',
+                        title: 'Interaction History & Actions',
+                        desc: 'Analyze page views, signups, feature interactions, and visitor actions.',
                         icon: BarChart3
                       },
                       {
                         key: 'content',
-                        title: 'Content Studio Hooks',
-                        desc: 'Permit direct injection of generated copy and social banners into draft channels.',
+                        title: 'Creative Campaign Drafts',
+                        desc: 'Draft campaign content, social posts, and banners instantly based on audience analytics.',
                         icon: FileText
                       },
                       {
                         key: 'campaigns',
-                        title: 'Automated Campaigns Dispatch',
-                        desc: 'Authorize trigger triggers to automatically push SMS alerts or WhatsApp nudges.',
+                        title: 'Automatic Message Senders',
+                        desc: 'Let AI send personalized messages or reminders when triggers are met.',
                         icon: Send
                       }
                     ].map((scope) => {
@@ -705,28 +705,28 @@ export default function ConnectedAppsMarketplace({
                   className="space-y-5"
                 >
                   <div className="space-y-1">
-                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 4: Activate Intelligent Agents</h4>
-                    <p className="text-xs text-slate-400">Configure deep neural layers. Activated agents run background scans to alert you of funnel blockages.</p>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono text-emerald-400">Step 4: Activate AI Growth Services</h4>
+                    <p className="text-xs text-slate-400">Turn on smart features. Our AI will automatically watch for dropoffs, drafts, and customer retention risks.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {[
                       {
                         key: 'diagnostics',
-                        title: 'Gemini Diagnostics',
-                        desc: 'Drafts periodic executive packets scanning MRR trails and regional anomalies.',
+                        title: 'AI Business Diagnostician',
+                        desc: 'Writes summary reports on sales progress, customer retention, and regional trends.',
                         icon: Sparkles
                       },
                       {
                         key: 'smsAlerts',
-                        title: 'Funnel Risk Alerts',
-                        desc: 'Detects sudden sign up drops or active subscription checkout dropouts.',
+                        title: 'Customer Retention Guardian',
+                        desc: 'Warns you if signup numbers or checkout purchases drop suddenly.',
                         icon: ShieldCheck
                       },
                       {
                         key: 'contentSync',
-                        title: 'Aesthetic Content Sync',
-                        desc: 'Syncs draft copies directly with marketing templates based on audience insights.',
+                        title: 'Smart Content Designer',
+                        desc: 'Aligns written copy with marketing designs based on target customer profiles.',
                         icon: Layers
                       }
                     ].map((agent) => {
@@ -767,8 +767,8 @@ export default function ConnectedAppsMarketplace({
                   <div className="bg-emerald-950/15 border border-emerald-500/20 rounded-2xl p-4.5 flex items-start gap-3 text-emerald-300">
                     <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400 mt-0.5 animate-pulse" />
                     <div className="text-[11.5px] leading-relaxed">
-                      <span className="font-bold block mb-0.5 text-white">Bootstrap Parameters Configured</span>
-                      By clicking activate, Growth OS will securely handshake with your postgres database, compile schemas, and index demographic tables (such as regional user densities) to feed custom AI suggestions.
+                      <span className="font-bold block mb-0.5 text-white">Setup Ready to Activate</span>
+                      By clicking activate, Growth OS will securely connect with your application, load configuration settings, and prepare target audience charts to feed custom AI business recommendations.
                     </div>
                   </div>
                 </motion.div>

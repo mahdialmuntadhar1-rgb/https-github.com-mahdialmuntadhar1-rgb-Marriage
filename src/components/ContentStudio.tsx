@@ -108,9 +108,9 @@ const DEFAULT_CALENDAR_ITEMS: CalendarItem[] = [
     id: 'cal_eduquest_2',
     appId: 'eduquest',
     platform: 'Email Campaign',
-    headline: 'Parent Telemetry Hub: Track cognitive progress in real time',
-    body: 'Introducing your child\'s detailed skill matrix dashboards. Discover strengths in spatial reasoning, algebra, and logic puzzles instantly.',
-    cta: 'Configure Parent Telemetry',
+    headline: 'Parent Progress Dashboard: See your child\'s math growth in real time',
+    body: 'Introducing your child\'s detailed learning checkpoints. Discover strengths in spatial reasoning, algebra, and logic puzzles instantly.',
+    cta: 'Open Parent Dashboard',
     status: 'Scheduled',
     publishDate: '2026-07-10',
     publishTime: '04:00 PM'
@@ -134,7 +134,7 @@ const DEFAULT_CALENDAR_ITEMS: CalendarItem[] = [
     id: 'cal_taskpulse_1',
     appId: 'taskpulse',
     platform: 'Social Media Post',
-    headline: 'Reducing developer distraction with automated Slack velocity logs ⚡',
+    headline: 'Reducing team meetings with automated Slack updates ⚡',
     body: 'Constant status queries kill engineering flow. See how TaskPulse integrates directly with workspace environments to keep stakeholders aligned without meeting fatigue.',
     cta: 'Explore Slack Integrations',
     status: 'Published',
@@ -378,13 +378,13 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
           </div>
           <div>
             <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-              AI Content Intelligence Studio
+              AI Content Studio
               <span className="text-[9px] font-mono font-bold bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full uppercase tracking-widest border border-slate-700/60">
-                Decision Hub
+                Campaign Builder
               </span>
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Automatically draft, polish, translate, and schedule multi-channel growth campaigns aligned to your active audience.
+              Draft, translate, and schedule multi-channel marketing campaigns aligned with your ideal customer goals.
             </p>
           </div>
         </div>
@@ -400,7 +400,7 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Content Generator</span>
+            <span>Write Campaign</span>
           </button>
           <button
             onClick={() => setCurrentView('calendar')}
@@ -411,7 +411,7 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
             }`}
           >
             <Calendar className="w-3.5 h-3.5" />
-            <span>Calendar Hub ({calendarItems.filter(i => i.appId === activeApp.id).length})</span>
+            <span>Campaign Schedule ({calendarItems.filter(i => i.appId === activeApp.id).length})</span>
           </button>
         </div>
       </div>
@@ -479,8 +479,8 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
               {/* GENERATOR INPUT FORM */}
               <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 space-y-4.5 shadow-xl">
                 <div>
-                  <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest block">AI Generator Configurations</span>
-                  <h3 className="text-xs font-bold text-white mt-0.5">Content Parameters</h3>
+                  <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest block">Campaign Settings</span>
+                  <h3 className="text-xs font-bold text-white mt-0.5">Define Your Message</h3>
                 </div>
 
                 <form onSubmit={handleGenerate} className="space-y-4">
@@ -504,12 +504,12 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
 
                   {/* Target Audience */}
                   <div>
-                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">Target Audience Segment</label>
+                    <label className="block text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-1.5">Your Ideal Customer</label>
                     <input
                       type="text"
                       value={audience}
                       onChange={(e) => setAudience(e.target.value)}
-                      placeholder="e.g. Unmarried Muslims looking for family transparency"
+                      placeholder="e.g. Busy parents seeking high-quality math learning"
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500/40"
                     />
                   </div>
@@ -554,12 +554,12 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
                     {loading ? (
                       <>
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                        <span>Generating {platform}...</span>
+                        <span>Writing campaign...</span>
                       </>
                     ) : (
                       <>
                         <Play className="w-3.5 h-3.5 fill-current" />
-                        <span>Generate High-Converting Copy</span>
+                        <span>Write My Campaign Now</span>
                       </>
                     )}
                   </button>
@@ -570,7 +570,7 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
                   <div className="bg-rose-950/20 border border-rose-900/30 p-3.5 rounded-xl flex items-start gap-2.5 text-rose-300 text-[11px] leading-relaxed">
                     <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold">Content failure:</span> {error}
+                      <span className="font-bold">Oops, writing campaign failed:</span> {error}
                     </div>
                   </div>
                 )}
@@ -864,9 +864,9 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
                       <Sparkles className="w-8 h-8 text-slate-700" />
                     </div>
                     <div className="max-w-md">
-                      <h4 className="text-xs font-bold text-slate-300">Choose formatting and click "Generate"</h4>
+                      <h4 className="text-xs font-bold text-slate-300">Choose formatting and click "Write Campaign"</h4>
                       <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                        GrowthBrain will review your target market profile, conversion goals, and app context to construct copy optimized for launch.
+                        Our AI will review your ideal customer goals to write high-converting copy in your voice.
                       </p>
                     </div>
 
@@ -878,12 +878,12 @@ export default function ContentStudio({ activeApp, prefilledGoal, prefilledTone,
                       {loading ? (
                         <>
                           <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                          <span>Constructing Initial Assets...</span>
+                          <span>Writing your campaign content...</span>
                         </>
                       ) : (
                         <>
                           <Play className="w-3.5 h-3.5 fill-current text-emerald-400" />
-                          <span>Generate {platform} Now</span>
+                          <span>Write My {platform} Now</span>
                         </>
                       )}
                     </button>

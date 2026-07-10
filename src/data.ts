@@ -7,6 +7,23 @@ import { ConnectedApp, Recommendation, GrowthTask, ChatMessage, MarketingAutomat
 
 export const INITIAL_APPS: ConnectedApp[] = [
   {
+    id: 'ai_growth_os',
+    name: 'AI-Growth-OS',
+    businessModel: 'SaaS',
+    description: 'Central operational workspace orchestrating automated growth marketing campaigns, custom business dashboards, and custom AI helpers.',
+    targetAudience: 'Growth executives, SaaS operators, and marketing team leads seeking streamlined intelligent workflows.',
+    metrics: {
+      mrr: 95400,
+      mau: 210000,
+      churn: 1.8,
+      arpu: 45,
+      cac: 85,
+      viralCo: 0.35,
+    },
+    connectedAt: '2026-01-10',
+    status: 'synced'
+  },
+  {
     id: 'zawaj',
     name: 'Zawaj',
     businessModel: 'Matchmaking',
@@ -24,54 +41,88 @@ export const INITIAL_APPS: ConnectedApp[] = [
     status: 'synced'
   },
   {
-    id: 'eduquest',
-    name: 'EduQuest',
-    businessModel: 'Education',
-    description: 'Interactive gamified learning platform for primary children utilizing AI-guided adaptiveness and live parent telemetry dashboards.',
-    targetAudience: 'Tech-conscious parents with kids aged 6-12 looking to accelerate STEM, logic, and mathematics skills.',
+    id: 'halal',
+    name: 'Halal',
+    businessModel: 'Marketplace',
+    description: 'E-commerce and marketplace portal verifying and delivering certified halal organic foods and artisanal products.',
+    targetAudience: 'Families seeking authenticated halal products and verified local micro-producers.',
     metrics: {
-      mrr: 124000,
-      mau: 310000,
-      churn: 2.1, // High stickiness
-      arpu: 20,
-      cac: 65, // Expensive CAC
-      viralCo: 0.12, // Needs virality
+      mrr: 64200,
+      mau: 98000,
+      churn: 3.4,
+      arpu: 25,
+      cac: 32,
+      viralCo: 0.42,
     },
-    connectedAt: '2026-04-01',
+    connectedAt: '2026-02-15',
     status: 'synced'
   },
   {
-    id: 'localcart',
-    name: 'LocalCart',
-    businessModel: 'Marketplace',
-    description: 'Hyperlocal peer-to-peer marketplace connecting neighborhood artisanal bakers, micro-chefs, and farmers with local foodies.',
-    targetAudience: 'Health-focused urban professionals seeking organic chef-made items, and micro-scale food producers.',
+    id: 'mrdm',
+    name: 'MRDM',
+    businessModel: 'Education',
+    description: 'Modern digital resource delivery platform and educational portal focusing on premium masterclass cohorts.',
+    targetAudience: 'Professional adult learners seeking high-impact, career-advancing certifications.',
     metrics: {
-      mrr: 72000,
-      mau: 89000,
-      churn: 5.5,
-      arpu: 8,
-      cac: 15, // Cheap CAC
-      viralCo: 0.65, // High organic virality
+      mrr: 112000,
+      mau: 45000,
+      churn: 2.8,
+      arpu: 95,
+      cac: 150,
+      viralCo: 0.14,
+    },
+    connectedAt: '2026-04-20',
+    status: 'synced'
+  },
+  {
+    id: 'eventra',
+    name: 'Eventra',
+    businessModel: 'SaaS',
+    description: 'All-in-one smart reservation, ticketing, and event planning suite with real-time analytics.',
+    targetAudience: 'Corporate organizers and premium event hosts managing high-throughput venues.',
+    metrics: {
+      mrr: 78000,
+      mau: 64000,
+      churn: 4.1,
+      arpu: 35,
+      cac: 75,
+      viralCo: 0.29,
+    },
+    connectedAt: '2026-05-05',
+    status: 'synced'
+  },
+  {
+    id: 'personal_brand',
+    name: 'Personal Brand',
+    businessModel: 'Education',
+    description: 'Content syndication hub, newsletters, and premium advisory portal for building executive brand presence.',
+    targetAudience: 'Founders, thought leaders, and venture capitalists building scalable digital reputations.',
+    metrics: {
+      mrr: 24000,
+      mau: 18000,
+      churn: 5.2,
+      arpu: 50,
+      cac: 20,
+      viralCo: 0.62,
     },
     connectedAt: '2026-05-18',
     status: 'synced'
   },
   {
-    id: 'taskpulse',
-    name: 'TaskPulse',
+    id: 'agency_clients',
+    name: 'Agency Clients',
     businessModel: 'SaaS/B2B',
-    description: 'Voice-driven developer task dispatcher that automatically converts daily slack huddles into prioritized sprint tickets.',
-    targetAudience: 'Fast-moving remote engineering teams (5 to 150 developers) with high slack collaboration clutter.',
+    description: 'Client dashboard and progress tracking engine serving elite B2B professional accounts.',
+    targetAudience: 'Retained marketing, design, and development clients expecting high-touch, data-rich reports.',
     metrics: {
-      mrr: 352000,
-      mau: 18000,
-      churn: 1.4, // Extremely low B2B churn
-      arpu: 120, // High ticket
-      cac: 280, // High enterprise CAC
-      viralCo: 0.05, // Almost no viral loop
+      mrr: 185000,
+      mau: 150,
+      churn: 0.8,
+      arpu: 1200,
+      cac: 850,
+      viralCo: 0.05,
     },
-    connectedAt: '2026-06-02',
+    connectedAt: '2026-06-01',
     status: 'synced'
   }
 ];

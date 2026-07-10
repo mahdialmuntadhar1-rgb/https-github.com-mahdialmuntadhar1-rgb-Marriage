@@ -17,6 +17,13 @@ interface DailyAgendaProps {
 }
 
 export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask, onDeleteTask }: DailyAgendaProps) {
+  const categoryLabels: Record<string, string> = {
+    Acquisition: 'Find Customers',
+    Retention: 'Keep Customers',
+    Monetization: 'Increase Revenue',
+    Virality: 'Word of Mouth'
+  };
+
   const [newTitle, setNewTitle] = useState('');
   const [category, setCategory] = useState<'Acquisition' | 'Retention' | 'Monetization' | 'Virality'>('Acquisition');
   const [priority, setPriority] = useState<'High' | 'Medium' | 'Low'>('High');
@@ -36,8 +43,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
       alerts.push({
         id: 'alert_churn',
         type: 'critical',
-        title: 'High Churn Leak',
-        message: `Current Churn is ${metrics.churn}%. AI suggests implementing customer retention loops or user feedback triggers immediately.`
+        title: 'Customer Leaving Rate is High',
+        message: `Currently, ${metrics.churn}% of customers stop using your product each month. AI suggests introducing customer follow-up emails or user feedback surveys immediately to understand why.`
       });
     }
 
@@ -45,8 +52,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
       alerts.push({
         id: 'alert_viral',
         type: 'warning',
-        title: 'Inactive Organic Growth',
-        message: `Viral K-factor is low (${metrics.viralCo}). You are over-relying on paid search. Standardize user-share templates.`
+        title: 'Low Word-of-Mouth Sharing',
+        message: `Your referral rate is low (${metrics.viralCo}). You are over-relying on paid advertising. Let's design premium sharing rewards or invite triggers.`
       });
     }
 
@@ -54,8 +61,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
       alerts.push({
         id: 'alert_cac',
         type: 'warning',
-        title: 'Unbalanced Unit Economics',
-        message: `CAC ($${metrics.cac}) is high compared to ARPU ($${metrics.arpu}). Seek organic viral referrals or elevate premium pricing.`
+        title: 'High Customer Acquisition Cost',
+        message: `It costs $${metrics.cac} to get a new customer, but they only spend $${metrics.arpu} on average. We need to raise average customer spending or get more organic referrals.`
       });
     }
 
@@ -64,8 +71,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
       alerts.push({
         id: 'alert_success',
         type: 'success',
-        title: 'Economics Balanced',
-        message: 'LTV to CAC ratio is exceptional! Today is optimized for aggressive scaling and viral expansion loops.'
+        title: 'Business Health looks Excellent',
+        message: 'Your advertising costs and average customer spending are perfectly balanced! Today is optimized for growing your audience and introducing word-of-mouth incentives.'
       });
     }
 
@@ -87,20 +94,20 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
     if (activeApp.id === 'zawaj') {
       return {
         greeting: "Good morning, Founder.",
-        insights: "Your Zawaj platform's viral referral loop grew 12% this week. However, profile completion decreased by 4% among new users during Wali (Guardian) registration.",
-        recommendation: "Launch Wali onboarding guide template copy in Content Studio to improve trust."
+        insights: "Your Zawaj platform's word-of-mouth referral rate grew 12% this week! However, profile completion decreased by 4% among new users during partner sign-up verification.",
+        recommendation: "Launch a custom helper guide in your Creative Copywriter to build trust."
       };
     } else if (activeApp.id === 'eduquest') {
       return {
         greeting: "Good morning, Founder.",
-        insights: "EduQuest math quest streaks are up 8% since Monday! STEM lesson completion is strong, but inactive alerts triggered for the weekend cohort.",
-        recommendation: "Activate the 'Re-engage Inactive' channel campaign in Content Studio now."
+        insights: "EduQuest homework streaks are up 8% since Monday! Math lesson completion is strong, but some students haven't logged in over the weekend.",
+        recommendation: "Activate the 'Re-engage Inactive Students' email campaign in your Creative Copywriter now."
       };
     } else {
       return {
         greeting: "Good morning, Founder.",
-        insights: `Your ${activeApp.name} platform is steady. Active subscription conversion is healthy at $${activeApp.metrics.arpu}/user, but organic K-coefficient (${activeApp.metrics.viralCo}) is flat.`,
-        recommendation: "Generate a custom referral campaign inside Content Studio to trigger virality."
+        insights: `Your ${activeApp.name} product is steady. Average spending is healthy at $${activeApp.metrics.arpu}/customer, but word-of-mouth sharing (${activeApp.metrics.viralCo}) is flat.`,
+        recommendation: "Generate a custom referral rewards campaign inside your Creative Copywriter to trigger sharing."
       };
     }
   };
@@ -168,10 +175,10 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
           <div className="flex items-center gap-2 text-emerald-400">
             <ClipboardList className="w-4 h-4" />
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider">Demographic Anchor</h4>
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider">Your Ideal Customer</h4>
           </div>
           <p className="text-xs text-slate-400 leading-relaxed">
-            AI is optimizing all generated copy and recommendations specifically targeting:
+            Your AI partner is optimizing all copy and recommendations specifically for:
             <strong className="block text-slate-200 mt-1">{activeApp.targetAudience}</strong>
           </p>
         </div>
@@ -184,9 +191,9 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
               <ClipboardList className="w-4 h-4 text-emerald-400" />
-              Your Action Checklist
+              Your Daily Playbook
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">High-impact tasks generated by AI matching active growth experiments.</p>
+            <p className="text-xs text-slate-400 mt-0.5">High-impact steps suggested by AI to grow your business today.</p>
           </div>
 
           <button
@@ -195,7 +202,7 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
             className="flex items-center gap-1 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-700/60 transition-all cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Add Task</span>
+            <span>Add Action</span>
           </button>
         </div>
 
@@ -212,11 +219,11 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
             >
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Task Title</label>
+                  <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">What needs to be done?</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Test referral pricing page flow..."
+                    placeholder="e.g. Write a friendly thank-you email template for new signups..."
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500/50"
@@ -224,16 +231,16 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Category</label>
+                  <label className="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Business Goal</label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as any)}
                     className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
-                    <option value="Acquisition">Acquisition</option>
-                    <option value="Retention">Retention</option>
-                    <option value="Monetization">Monetization</option>
-                    <option value="Virality">Virality</option>
+                    <option value="Acquisition">Find Customers (Acquisition)</option>
+                    <option value="Retention">Keep Customers (Retention)</option>
+                    <option value="Monetization">Increase Revenue (Monetization)</option>
+                    <option value="Virality">Word of Mouth (Virality)</option>
                   </select>
                 </div>
               </div>
@@ -318,8 +325,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
                           >
                             <span className="text-xs text-slate-200 font-medium leading-normal">{task.title}</span>
                             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/50">
-                              <span className="text-[8px] font-mono bg-slate-950 text-slate-500 px-1 py-0.5 rounded">
-                                {task.category}
+                              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/10 px-2 py-0.5 rounded">
+                                {categoryLabels[task.category] || task.category}
                               </span>
                               <div className="flex items-center gap-1">
                                 <button
@@ -369,8 +376,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
                           >
                             <span className="text-xs text-slate-200 font-medium leading-normal">{task.title}</span>
                             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/50">
-                              <span className="text-[8px] font-mono bg-slate-950 text-slate-500 px-1 py-0.5 rounded">
-                                {task.category}
+                              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/10 px-2 py-0.5 rounded">
+                                {categoryLabels[task.category] || task.category}
                               </span>
                               <div className="flex items-center gap-1">
                                 <button
@@ -420,8 +427,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
                           >
                             <span className="text-xs text-slate-200 font-medium leading-normal">{task.title}</span>
                             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-800/50">
-                              <span className="text-[8px] font-mono bg-slate-950 text-slate-500 px-1 py-0.5 rounded">
-                                {task.category}
+                              <span className="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/10 px-2 py-0.5 rounded">
+                                {categoryLabels[task.category] || task.category}
                               </span>
                               <div className="flex items-center gap-1">
                                 <button
@@ -455,7 +462,7 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
           {completedTasks.length > 0 && (
             <div className="space-y-2 pt-2 border-t border-slate-800/40">
               <h4 className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                <span>Executed Plays</span>
+                <span>Completed Actions</span>
                 <span className="bg-slate-800 text-slate-400 text-[8px] px-1.5 py-0.5 rounded-full font-mono">{completedTasks.length}</span>
               </h4>
 
@@ -476,8 +483,8 @@ export default function DailyAgenda({ activeApp, tasks, onToggleTask, onAddTask,
                       <div>
                         <span className="text-xs text-slate-400 line-through">{task.title}</span>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[8px] font-mono text-slate-600">
-                            {task.category}
+                          <span className="text-[8px] font-mono text-slate-500">
+                            {categoryLabels[task.category] || task.category}
                           </span>
                         </div>
                       </div>
