@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.vscode/
+.idea/
+.antigravity/
+.antigravity-ide/
+.env
+.env.local
+*.log
+
+.cache/
+.aider*
+
+__pycache__/
+*.pyc
