@@ -1,0 +1,17 @@
+﻿name = "zawaj-api"
+main = "src/index.ts"
+compatibility_date = "2026-07-15"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zawaj-db"
+database_id = "382245be-f0eb-4c56-ac3b-8af0d7eed188"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "zawaj-photos"
+
+[vars]
+SALT_TOKEN = "zawaj-salt-2026-secure-random-string"
+JWT_SECRET = "zawaj-jwt-secret-change-this-in-production-2026"

@@ -1,0 +1,23 @@
+{
+  "name": "zawaj-api",
+  "version": "1.0.0",
+  "description": "Zawaj API - Cloudflare Workers backend",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create zawaj-db",
+    "db:migrate": "wrangler d1 migrations apply zawaj-db --local",
+    "db:migrate:prod": "wrangler d1 migrations apply zawaj-db"
+  },
+  "keywords": ["zawaj", "cloudflare", "workers", "d1"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "hono": "4.12.30"
+  },
+  "devDependencies": {
+    "wrangler": "4.110.0"
+  }
+}
